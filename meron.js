@@ -49,10 +49,11 @@ var meron = meron || function() {
       return true;
     };
 
-    var c = document.cookie.split(';');
+    var c = window.document.cookie.split(';');
     var values = '';
     for(var i=0,l=c.length;i<l;i++){
       values = c[i].split('=');
+
       switch(values[0].replace(/(^\s+|\s+$)/g, '')) {
         case '__utma': _get_utma(values[1].split(".")); break;
         case '__utmb': _get_utmb(values[1].split(".")); break;
@@ -62,6 +63,7 @@ var meron = meron || function() {
   };
 
   return {
+    reload:              function() { _isInit = false; return true; },
     isVisitor:           function() { _isInit = _isInit || init(); return _isVisitor; },
     visits:              function() { _isInit = _isInit || init(); return _visits; },
     recency:             function() { _isInit = _isInit || init(); return _recency; },
